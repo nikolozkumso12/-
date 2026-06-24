@@ -21,6 +21,14 @@ button:hover{transform:scale(1.05);background:#005fa3}
 #chatInput{padding:12px;width:260px;max-width:80%;border-radius:10px;border:1px solid #ccc}
 #chatAnswer{font-size:18px;max-width:600px;margin:15px auto;line-height:1.5}
 .dark{background:#121212;color:white}.dark header{background:#000}.dark .el{background:#1f1f1f;color:white;box-shadow:0 2px 8px #000}.dark .el:hover{background:#263244}.dark .card{background:#222;color:white}.dark .sym,.dark .big{color:#4db8ff}.dark button{background:#374151}.dark button:hover{background:#4b5563}.dark #chatInput{background:#222;color:white;border-color:#555}
+
+.scientists{max-width:900px;margin:40px auto;padding:25px;background:white;border-radius:20px;box-shadow:0 5px 15px rgba(0,0,0,.15)}
+.scientistGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:700px;margin:20px auto}
+.scientistBtn{background:#0f766e}
+.scientistBtn:hover{background:#115e59}
+.dark .scientists{background:#1f1f1f;color:white;box-shadow:0 2px 8px #000}
+@media(max-width:600px){.scientistGrid{grid-template-columns:1fr}}
+
 @media(max-width:700px){.table{grid-template-columns:repeat(4,70px)}}
 @media(max-width:380px){.table{grid-template-columns:repeat(3,70px)}}
 </style>
@@ -34,6 +42,7 @@ button:hover{transform:scale(1.05);background:#005fa3}
 <button onclick="toggleDark()">🌙 მუქი რეჟიმი</button>
 <button onclick="document.getElementById('quizSection').scrollIntoView({behavior:'smooth'})">🧠 ქუიზზე გადასვლა</button>
 <button onclick="document.getElementById('aiChat').scrollIntoView({behavior:'smooth'})">🤖 ელემენტზე კითხვა</button>
+<button onclick="document.getElementById('scientists').scrollIntoView({behavior:'smooth'})">👩‍🔬 მეცნიერები</button>
 </header>
 
 <div class="table" id="table"></div>
@@ -71,6 +80,25 @@ button:hover{transform:scale(1.05);background:#005fa3}
   <p id="chatAnswer"></p>
 </section>
 
+
+<section id="scientists" class="scientists">
+  <h1>👩‍🔬 ცნობილი ქიმიკოსები</h1>
+  <p>დააჭირე მეცნიერის სახელს და ნახე მოკლე ინფორმაცია.</p>
+
+  <div class="scientistGrid">
+    <button class="scientistBtn" onclick="openScientist('დიმიტრი მენდელეევი','⚛️','რუსი ქიმიკოსი, რომელმაც შექმნა პერიოდული ცხრილი და იწინასწარმეტყველა ჯერ კიდევ აღმოუჩენელი ელემენტების არსებობა.')">დიმიტრი მენდელეევი</button>
+
+    <button class="scientistBtn" onclick="openScientist('მარი კიური','☢️','პოლონელ-ფრანგი მეცნიერი. აღმოაჩინა პოლონიუმი და რადიუმი. პირველი ქალი იყო, რომელმაც ნობელის პრემია მიიღო.')">მარი კიური</button>
+
+    <button class="scientistBtn" onclick="openScientist('რობერტ ბოილი','🧪','ირლანდიელი ქიმიკოსი. თანამედროვე ქიმიის ერთ-ერთი დამფუძნებელი და „ქიმიური ელემენტის“ ცნების განვითარებაში მნიშვნელოვანი ფიგურა.')">რობერტ ბოილი</button>
+
+    <button class="scientistBtn" onclick="openScientist('ანტუან ლავუაზიე','🔥','ფრანგი ქიმიკოსი, რომელსაც ხშირად თანამედროვე ქიმიის მამას უწოდებენ. შეისწავლა ჟანგბადის როლი წვის პროცესში.')">ანტუან ლავუაზიე</button>
+
+    <button class="scientistBtn" onclick="openScientist('ჯონ დალტონი','⚡','ინგლისელი მეცნიერი, რომელმაც შექმნა ატომური თეორია და ახსნა, რომ ნივთიერებები ატომებისგან შედგება.')">ჯონ დალტონი</button>
+  </div>
+</section>
+
+
 <script>
 const elements = [
 ["H","Hydrogen"],["He","Helium"],["Li","Lithium"],["Be","Beryllium"],["B","Boron"],["C","Carbon"],
@@ -99,6 +127,14 @@ const table=document.getElementById("table");
 elements.forEach((e,i)=>{table.innerHTML+=`<div class="el" onclick="openModal('${e[0]}','${e[1]}',${i+1})"><div class="num">${i+1}</div><div class="sym">${e[0]}</div><div class="name">${e[1]}</div></div>`;});
 function openModal(sym,name,num){document.getElementById("modal").style.display="flex";document.getElementById("mSymbol").innerHTML=sym;document.getElementById("mName").innerHTML=name;document.getElementById("mInfo").innerHTML="ატომური ნომერი: "+num+"<br>ეს არის ელემენტი "+name+".";}
 function closeModal(){document.getElementById("modal").style.display="none";}
+
+function openScientist(name,emoji,info){
+document.getElementById("modal").style.display="flex";
+document.getElementById("mSymbol").innerHTML=emoji;
+document.getElementById("mName").innerHTML=name;
+document.getElementById("mInfo").innerHTML=info;
+}
+
 function toggleDark(){document.body.classList.toggle("dark");}
 function beep(type){
   const ctx=new (window.AudioContext||window.webkitAudioContext)();
