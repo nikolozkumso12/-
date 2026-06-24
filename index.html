@@ -37,5 +37,25 @@ elements.forEach(e=>{let div=document.createElement('div');div.className='el';di
 function openModal(e){document.getElementById('mSym').textContent=e[1];document.getElementById('mName').textContent=e[2];document.getElementById('mInfo').textContent=e[3];document.getElementById('mNum').textContent='Atomic number: '+e[0];document.getElementById('modal').style.display='flex'}
 function closeModal(){document.getElementById('modal').style.display='none'}
 </script>
+<div style="text-align:center;margin:40px;">
+<h2>Quiz</h2>
+<p>What is the symbol of Oxygen?</p>
+
+<button onclick="quiz('O')">O</button>
+<button onclick="quiz('H')">H</button>
+<button onclick="quiz('N')">N</button>
+
+<p id="quizResult"></p>
+</div>
+
+<script>
+function quiz(answer){
+    if(answer=="O"){
+        document.getElementById("quizResult").innerHTML="✅ Correct!";
+    }else{
+        document.getElementById("quizResult").innerHTML="❌ Wrong!";
+    }
+}
+</script>
 </body>
 </html>
