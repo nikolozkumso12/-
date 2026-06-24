@@ -29,6 +29,17 @@ button:hover{transform:scale(1.05);background:#005fa3}
 .dark .scientists{background:#1f1f1f;color:white;box-shadow:0 2px 8px #000}
 @media(max-width:600px){.scientistGrid{grid-template-columns:1fr}}
 
+
+.leaderboardBox{max-width:700px;margin:25px auto;padding:20px;border-radius:22px;background:linear-gradient(135deg,#ffffff,#eaf5ff);box-shadow:0 8px 25px rgba(0,0,0,.15)}
+#leaderboard{list-style:none;padding:0;margin:15px auto;max-width:560px}
+#leaderboard li{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 0;padding:14px 16px;border-radius:16px;background:white;box-shadow:0 3px 10px rgba(0,0,0,.12);font-size:18px;font-weight:bold}
+.rankBadge{width:38px;height:38px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:#0077cc;color:white;margin-right:10px}
+.playerName{flex:1;text-align:left}.playerScore{background:#16a34a;color:white;border-radius:999px;padding:6px 12px}
+.leaderNote{font-size:14px;color:#475569;line-height:1.5}.dark .leaderboardBox{background:linear-gradient(135deg,#1f2937,#111827);box-shadow:0 4px 18px #000}.dark #leaderboard li{background:#111827;color:white}.dark .leaderNote{color:#cbd5e1}
+.infoSection{max-width:1000px;margin:55px auto;padding:28px;text-align:left;background:white;border-radius:24px;box-shadow:0 8px 25px rgba(0,0,0,.14);line-height:1.75}
+.infoSection h1{text-align:center;color:#1f4e79}.infoGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:22px}.infoCard{padding:18px;border-radius:18px;background:#f8fbff;border-left:6px solid #0077cc}.infoCard h2{margin-top:0;color:#0077cc}.infoCard ul{padding-left:22px}.factBox{background:#e8f5ff;border-radius:16px;padding:16px;margin:14px 0}.dark .infoSection{background:#1f1f1f;color:white;box-shadow:0 2px 8px #000}.dark .infoSection h1,.dark .infoCard h2{color:#4db8ff}.dark .infoCard{background:#111827;border-left-color:#4db8ff}.dark .factBox{background:#263244}
+@media(max-width:700px){.infoGrid{grid-template-columns:1fr}.leaderboardBox{margin:20px}.infoSection{margin:35px 15px;padding:20px}#leaderboard li{font-size:16px}}
+
 @media(max-width:700px){.table{grid-template-columns:repeat(4,70px)}}
 @media(max-width:380px){.table{grid-template-columns:repeat(3,70px)}}
 </style>
@@ -43,6 +54,7 @@ button:hover{transform:scale(1.05);background:#005fa3}
 <button onclick="document.getElementById('quizSection').scrollIntoView({behavior:'smooth'})">🧠 ქუიზზე გადასვლა</button>
 <button onclick="document.getElementById('aiChat').scrollIntoView({behavior:'smooth'})">🤖 ელემენტზე კითხვა</button>
 <button onclick="document.getElementById('scientists').scrollIntoView({behavior:'smooth'})">👩‍🔬 მეცნიერები</button>
+<button onclick="document.getElementById('bigInfo').scrollIntoView({behavior:'smooth'})">📚 დიდი ინფორმაცია</button>
 </header>
 
 <div class="table" id="table"></div>
@@ -69,8 +81,11 @@ button:hover{transform:scale(1.05);background:#005fa3}
 
 <button onclick="document.getElementById('elements').scrollIntoView({behavior:'smooth'})">🧪 ელემენტებთან დაბრუნება</button>
 
+<div class="leaderboardBox">
 <h2>🥇 ლიდერბორდი</h2>
+<p class="leaderNote">შედეგი ინახება მხოლოდ მაშინ, როცა მოთამაშე თავის წინა ქულას გააუმჯობესებს.</p>
 <ol id="leaderboard"></ol>
+</div>
 </section>
 
 <section id="aiChat">
@@ -96,6 +111,62 @@ button:hover{transform:scale(1.05);background:#005fa3}
 
     <button class="scientistBtn" onclick="openScientist('ჯონ დალტონი','⚡','ინგლისელი მეცნიერი, რომელმაც შექმნა ატომური თეორია და ახსნა, რომ ნივთიერებები ატომებისგან შედგება.')">ჯონ დალტონი</button>
   </div>
+</section>
+
+<section id="bigInfo" class="infoSection">
+<h1>📚 დიდი ინფორმაცია ქიმიაზე</h1>
+<p>ქიმია არის მეცნიერება, რომელიც სწავლობს ნივთიერებებს, მათ შემადგენლობას, აგებულებას, თვისებებს და გარდაქმნებს. ქიმიის დახმარებით ვიგებთ, რისგან შედგება წყალი, ჰაერი, საკვები, მედიკამენტები, ლითონები, პლასტმასი და ადამიანის სხეულიც კი.</p>
+
+<div class="infoGrid">
+  <div class="infoCard">
+    <h2>⚛️ ატომი</h2>
+    <p>ატომი არის ნივთიერების ძალიან პატარა ნაწილაკი. ატომი შედგება ბირთვისგან და ელექტრონებისგან. ბირთვში არის პროტონები და ნეიტრონები, ხოლო ელექტრონები ბირთვის გარშემო მოძრაობენ.</p>
+    <ul>
+      <li>პროტონი — დადებითი მუხტი (+)</li>
+      <li>ნეიტრონი — მუხტი არ აქვს (0)</li>
+      <li>ელექტრონი — უარყოფითი მუხტი (−)</li>
+    </ul>
+  </div>
+
+  <div class="infoCard">
+    <h2>🔢 ატომური ნომერი</h2>
+    <p>ატომური ნომერი გვიჩვენებს, რამდენი პროტონია ატომის ბირთვში. მაგალითად Oxygen-ის ატომური ნომერია 8, ეს ნიშნავს, რომ მის ბირთვში 8 პროტონია.</p>
+    <p>ნეიტრონების პოვნა ხშირად შეიძლება ასე: <b>მასური რიცხვი − პროტონები = ნეიტრონები</b>.</p>
+  </div>
+
+  <div class="infoCard">
+    <h2>🧪 ქიმიური ელემენტი</h2>
+    <p>ქიმიური ელემენტი არის ერთნაირი პროტონების რაოდენობის მქონე ატომების სახეობა. მაგალითად ყველა ატომი, რომელსაც 1 პროტონი აქვს, არის Hydrogen. ყველა ატომი, რომელსაც 8 პროტონი აქვს, არის Oxygen.</p>
+  </div>
+
+  <div class="infoCard">
+    <h2>📊 პერიოდული ცხრილი</h2>
+    <p>პერიოდული ცხრილი აწყობს ელემენტებს ატომური ნომრის მიხედვით. ცხრილში ელემენტები განლაგებულია პერიოდებად და ჯგუფებად. ერთი ჯგუფის ელემენტებს ხშირად მსგავსი თვისებები აქვთ.</p>
+  </div>
+
+  <div class="infoCard">
+    <h2>🔥 რეაქციები</h2>
+    <p>ქიმიური რეაქცია არის პროცესი, როცა ნივთიერებები გარდაიქმნება ახალ ნივთიერებებად. მაგალითად წვის დროს საწვავი და Oxygen რეაგირებენ და გამოიყოფა სითბო და სინათლე.</p>
+    <ul>
+      <li>წვა</li>
+      <li>დაჟანგვა</li>
+      <li>შეერთება</li>
+      <li>დაშლა</li>
+      <li>ნეიტრალიზაცია</li>
+    </ul>
+  </div>
+
+  <div class="infoCard">
+    <h2>🌍 ქიმია ყოველდღიურ ცხოვრებაში</h2>
+    <p>ქიმია ყველგანაა: წყალში, საკვებში, ჰაერში, საპონში, წამლებში, ბატარეებში, ტელეფონებში და ტანსაცმელშიც. ქიმია გვეხმარება ახალი მასალების შექმნაში და გარემოს უკეთ დაცვაში.</p>
+  </div>
+</div>
+
+<div class="factBox">💡 <b>საინტერესო ფაქტი:</b> ალმასი და გრაფიტი ორივე Carbon-ისგან შედგება, მაგრამ მათი აგებულება განსხვავებულია, ამიტომ ალმასი ძალიან მყარია, გრაფიტი კი რბილი.</div>
+<div class="factBox">💡 <b>საინტერესო ფაქტი:</b> Gold (Au) თითქმის არ ჟანგდება, ამიტომ მას ძველ დროშიც დიდად აფასებდნენ.</div>
+<div class="factBox">💡 <b>საინტერესო ფაქტი:</b> Helium პირველად მზეზე აღმოაჩინეს სპექტრის საშუალებით და შემდეგ დედამიწაზე იპოვეს.</div>
+
+<p style="text-align:center"><button onclick="document.getElementById('elements').scrollIntoView({behavior:'smooth'})">⬆️ ზემოთ დაბრუნება</button></p>
 </section>
 
 
@@ -171,7 +242,14 @@ function answer(choice,btn){
   setTimeout(()=>{if(current>=10)finishQuiz();else showQuestion();},700);
 }
 function finishQuiz(){clearInterval(timer);document.getElementById("question").innerHTML="🏆 ქუიზი დასრულდა!";document.getElementById("answers").innerHTML="";document.getElementById("score").innerHTML="ქულა: "+points+"/10";let name=prompt("ჩაწერე შენი სახელი:");if(!name)name="მოთამაშე";let leaderboard=JSON.parse(localStorage.getItem("leaderboard"))||[];let existing=leaderboard.find(p=>p.name===name);if(existing){if(points>existing.score){existing.score=points;alert("🎉 ახალი საუკეთესო შედეგი!");}else{alert("❌ ახალი შედეგი რომ შეინახოს, უნდა გააუმჯობესო წინა ქულა ("+existing.score+"/10) .");showLeaderboard();return;}}else{leaderboard.push({name:name,score:points});}leaderboard.sort((a,b)=>b.score-a.score);leaderboard=leaderboard.slice(0,5);localStorage.setItem("leaderboard",JSON.stringify(leaderboard));showLeaderboard();}
-function showLeaderboard(){let leaderboard=JSON.parse(localStorage.getItem("leaderboard"))||[];document.getElementById("leaderboard").innerHTML=leaderboard.map(p=>`<li>${p.name} - ${p.score}/10</li>`).join("");}
+function showLeaderboard(){
+let leaderboard=JSON.parse(localStorage.getItem("leaderboard"))||[];
+if(leaderboard.length===0){document.getElementById("leaderboard").innerHTML="<li><span class='playerName'>ჯერ შედეგი არ არის</span><span class='playerScore'>0/10</span></li>";return;}
+document.getElementById("leaderboard").innerHTML=leaderboard.map((p,i)=>{
+  const medals=["🥇","🥈","🥉","🏅","⭐"];
+  return `<li><span class="rankBadge">${medals[i]||i+1}</span><span class="playerName">${p.name}</span><span class="playerScore">${p.score}/10</span></li>`;
+}).join("");
+}
 
 function askElement(){
   const question = document.getElementById("chatInput").value.toLowerCase().trim();
