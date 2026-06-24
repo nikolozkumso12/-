@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ka">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Element Explorer</title>
+<title>ელემენტების მკვლევარი</title>
 
 <style>
 body{font-family:Arial;background:#f3f7ff;margin:0;text-align:center;color:#1f2937;transition:.3s}
@@ -29,11 +29,11 @@ button:hover{transform:scale(1.05);background:#005fa3}
 <body>
 
 <header id="elements">
-<h1>⚛️ Element Explorer</h1>
-<p>Click an element to see information</p>
-<button onclick="toggleDark()">🌙 Dark Mode</button>
-<button onclick="document.getElementById('quizSection').scrollIntoView({behavior:'smooth'})">🧠 Go to Quiz</button>
-<button onclick="document.getElementById('aiChat').scrollIntoView({behavior:'smooth'})">🤖 Ask Elements</button>
+<h1>⚛️ ელემენტების მკვლევარი</h1>
+<p>დააჭირე ელემენტს და ნახე ინფორმაცია</p>
+<button onclick="toggleDark()">🌙 მუქი რეჟიმი</button>
+<button onclick="document.getElementById('quizSection').scrollIntoView({behavior:'smooth'})">🧠 ქუიზზე გადასვლა</button>
+<button onclick="document.getElementById('aiChat').scrollIntoView({behavior:'smooth'})">🤖 ელემენტზე კითხვა</button>
 </header>
 
 <div class="table" id="table"></div>
@@ -48,26 +48,26 @@ button:hover{transform:scale(1.05);background:#005fa3}
 </div>
 
 <section id="quizSection">
-<h1>🧠 Element Quiz</h1>
-<button onclick="startQuiz()">Start Quiz</button>
+<h1>🧠 ელემენტების ქუიზი</h1>
+<button onclick="startQuiz()">ქუიზის დაწყება</button>
 
 <div id="quizBox" style="display:none">
-<h2 id="timer">Time: 60</h2>
+<h2 id="timer">დრო: 60</h2>
 <h3 id="question"></h3>
 <div id="answers"></div>
 <p id="score"></p>
 </div>
 
-<button onclick="document.getElementById('elements').scrollIntoView({behavior:'smooth'})">🧪 Back to Periodic Table</button>
+<button onclick="document.getElementById('elements').scrollIntoView({behavior:'smooth'})">🧪 ელემენტებთან დაბრუნება</button>
 
-<h2>🥇 Leaderboard</h2>
+<h2>🥇 ლიდერბორდი</h2>
 <ol id="leaderboard"></ol>
 </section>
 
 <section id="aiChat">
-  <h1>🤖 Ask About Elements</h1>
-  <input id="chatInput" placeholder="Type: oxygen, gold, iron...">
-  <button onclick="askElement()">Ask</button>
+  <h1>🤖 ჰკითხე ელემენტებზე</h1>
+  <input id="chatInput" placeholder="ჩაწერე: oxygen, gold, iron...">
+  <button onclick="askElement()">კითხვა</button>
   <p id="chatAnswer"></p>
 </section>
 
@@ -97,7 +97,7 @@ const elements = [
 
 const table=document.getElementById("table");
 elements.forEach((e,i)=>{table.innerHTML+=`<div class="el" onclick="openModal('${e[0]}','${e[1]}',${i+1})"><div class="num">${i+1}</div><div class="sym">${e[0]}</div><div class="name">${e[1]}</div></div>`;});
-function openModal(sym,name,num){document.getElementById("modal").style.display="flex";document.getElementById("mSymbol").innerHTML=sym;document.getElementById("mName").innerHTML=name;document.getElementById("mInfo").innerHTML="Atomic number: "+num+"<br>This is the element "+name+".";}
+function openModal(sym,name,num){document.getElementById("modal").style.display="flex";document.getElementById("mSymbol").innerHTML=sym;document.getElementById("mName").innerHTML=name;document.getElementById("mInfo").innerHTML="ატომური ნომერი: "+num+"<br>ეს არის ელემენტი "+name+".";}
 function closeModal(){document.getElementById("modal").style.display="none";}
 function toggleDark(){document.body.classList.toggle("dark");}
 function beep(type){
@@ -110,21 +110,21 @@ function beep(type){
 }
 
 const quizQuestions=[
-{q:"What is the symbol of Oxygen?",a:"O",options:["O","H","N","C"]},
-{q:"What is the symbol of Hydrogen?",a:"H",options:["O","H","He","Na"]},
-{q:"What is the symbol of Carbon?",a:"C",options:["Ca","C","Cl","Co"]},
-{q:"What is the symbol of Sodium?",a:"Na",options:["S","So","Na","N"]},
-{q:"What is the symbol of Helium?",a:"He",options:["H","He","Ho","Ha"]},
-{q:"What is the symbol of Iron?",a:"Fe",options:["Ir","I","Fe","F"]},
-{q:"What is the symbol of Gold?",a:"Au",options:["Ag","Au","G","Go"]},
-{q:"What is the symbol of Silver?",a:"Ag",options:["S","Si","Ag","Au"]},
-{q:"What is the symbol of Calcium?",a:"Ca",options:["C","Ca","Cl","Co"]},
-{q:"What is the symbol of Chlorine?",a:"Cl",options:["C","Ca","Cl","Ch"]}
+{q:"რა არის Oxygen-ის სიმბოლო?",a:"O",options:["O","H","N","C"]},
+{q:"რა არის Hydrogen-ის სიმბოლო?",a:"H",options:["O","H","He","Na"]},
+{q:"რა არის Carbon-ის სიმბოლო?",a:"C",options:["Ca","C","Cl","Co"]},
+{q:"რა არის Sodium-ის სიმბოლო?",a:"Na",options:["S","So","Na","N"]},
+{q:"რა არის Helium-ის სიმბოლო?",a:"He",options:["H","He","Ho","Ha"]},
+{q:"რა არის Iron-ის სიმბოლო?",a:"Fe",options:["Ir","I","Fe","F"]},
+{q:"რა არის Gold-ის სიმბოლო?",a:"Au",options:["Ag","Au","G","Go"]},
+{q:"რა არის Silver-ის სიმბოლო?",a:"Ag",options:["S","Si","Ag","Au"]},
+{q:"რა არის Calcium-ის სიმბოლო?",a:"Ca",options:["C","Ca","Cl","Co"]},
+{q:"რა არის Chlorine-ის სიმბოლო?",a:"Cl",options:["C","Ca","Cl","Ch"]}
 ];
 let current=0,points=0,time=60,timer;
 
-function startQuiz(){current=0;points=0;time=60;document.getElementById("quizBox").style.display="block";showQuestion();clearInterval(timer);timer=setInterval(()=>{time--;document.getElementById("timer").innerHTML="Time: "+time;if(time<=0)finishQuiz();},1000);}
-function showQuestion(){let q=quizQuestions[current];document.getElementById("question").innerHTML="Question "+(current+1)+"/10: "+q.q;document.getElementById("answers").innerHTML=q.options.map(o=>`<button onclick="answer('${o}', this)">${o}</button>`).join("");document.getElementById("score").innerHTML="Score: "+points;}
+function startQuiz(){current=0;points=0;time=60;document.getElementById("quizBox").style.display="block";showQuestion();clearInterval(timer);timer=setInterval(()=>{time--;document.getElementById("timer").innerHTML="დრო: "+time;if(time<=0)finishQuiz();},1000);}
+function showQuestion(){let q=quizQuestions[current];document.getElementById("question").innerHTML="კითხვა "+(current+1)+"/10: "+q.q;document.getElementById("answers").innerHTML=q.options.map(o=>`<button onclick="answer('${o}', this)">${o}</button>`).join("");document.getElementById("score").innerHTML="ქულა: "+points;}
 function answer(choice,btn){
   const right=quizQuestions[current].a;
   const buttons=document.querySelectorAll("#answers button");
@@ -134,23 +134,23 @@ function answer(choice,btn){
   current++;
   setTimeout(()=>{if(current>=10)finishQuiz();else showQuestion();},700);
 }
-function finishQuiz(){clearInterval(timer);document.getElementById("question").innerHTML="🏆 Quiz Finished!";document.getElementById("answers").innerHTML="";document.getElementById("score").innerHTML="Score: "+points+"/10";let name=prompt("Enter your name:");if(!name)name="Player";let leaderboard=JSON.parse(localStorage.getItem("leaderboard"))||[];let existing=leaderboard.find(p=>p.name===name);if(existing){if(points>existing.score){existing.score=points;alert("🎉 New High Score!");}else{alert("❌ You must beat your previous score ("+existing.score+"/10) to save a new result.");showLeaderboard();return;}}else{leaderboard.push({name:name,score:points});}leaderboard.sort((a,b)=>b.score-a.score);leaderboard=leaderboard.slice(0,5);localStorage.setItem("leaderboard",JSON.stringify(leaderboard));showLeaderboard();}
+function finishQuiz(){clearInterval(timer);document.getElementById("question").innerHTML="🏆 ქუიზი დასრულდა!";document.getElementById("answers").innerHTML="";document.getElementById("score").innerHTML="ქულა: "+points+"/10";let name=prompt("ჩაწერე შენი სახელი:");if(!name)name="მოთამაშე";let leaderboard=JSON.parse(localStorage.getItem("leaderboard"))||[];let existing=leaderboard.find(p=>p.name===name);if(existing){if(points>existing.score){existing.score=points;alert("🎉 ახალი საუკეთესო შედეგი!");}else{alert("❌ ახალი შედეგი რომ შეინახოს, უნდა გააუმჯობესო წინა ქულა ("+existing.score+"/10) .");showLeaderboard();return;}}else{leaderboard.push({name:name,score:points});}leaderboard.sort((a,b)=>b.score-a.score);leaderboard=leaderboard.slice(0,5);localStorage.setItem("leaderboard",JSON.stringify(leaderboard));showLeaderboard();}
 function showLeaderboard(){let leaderboard=JSON.parse(localStorage.getItem("leaderboard"))||[];document.getElementById("leaderboard").innerHTML=leaderboard.map(p=>`<li>${p.name} - ${p.score}/10</li>`).join("");}
 
 function askElement(){
   const question = document.getElementById("chatInput").value.toLowerCase().trim();
   const data = {
-    oxygen: "🫁 Oxygen (O) - Atomic number 8. Essential for breathing and combustion.",
-    hydrogen: "💧 Hydrogen (H) - Atomic number 1. The lightest element in the universe.",
-    carbon: "🌱 Carbon (C) - Atomic number 6. Found in all living organisms.",
-    iron: "🔩 Iron (Fe) - Atomic number 26. Used in construction and manufacturing.",
-    gold: "🥇 Gold (Au) - Atomic number 79. A precious metal used in jewelry and electronics.",
-    silver: "🥈 Silver (Ag) - Atomic number 47. Excellent conductor of electricity.",
-    sodium: "🧂 Sodium (Na) - Atomic number 11. Found in table salt.",
-    helium: "🎈 Helium (He) - Atomic number 2. Used in balloons and cooling systems."
+    oxygen: "🫁 Oxygen (O) - Atomic number 8. აუცილებელია სუნთქვისთვის და წვისთვის.",
+    hydrogen: "💧 Hydrogen (H) - Atomic number 1. სამყაროში ყველაზე მსუბუქი ელემენტია.",
+    carbon: "🌱 Carbon (C) - Atomic number 6. გვხვდება ყველა ცოცხალ ორგანიზმში.",
+    iron: "🔩 Iron (Fe) - Atomic number 26. გამოიყენება მშენებლობასა და წარმოებაში.",
+    gold: "🥇 Gold (Au) - Atomic number 79. ძვირფასი მეტალია, გამოიყენება სამკაულებსა და ელექტრონიკაში.",
+    silver: "🥈 Silver (Ag) - Atomic number 47. ელექტრობის ძალიან კარგი გამტარია.",
+    sodium: "🧂 Sodium (Na) - Atomic number 11. გვხვდება სუფრის მარილში.",
+    helium: "🎈 Helium (He) - Atomic number 2. გამოიყენება ბუშტებსა და გაგრილების სისტემებში."
   };
 
-  let answer = "❓ Sorry, I don't know that element yet. Try: oxygen, hydrogen, carbon, iron, gold, silver, sodium or helium.";
+  let answer = "❓ ეს ელემენტი ჯერ არ ვიცი. სცადე: oxygen, hydrogen, carbon, iron, gold, silver, sodium ან helium.";
   for(const key in data){
     if(question.includes(key)) answer = data[key];
   }
