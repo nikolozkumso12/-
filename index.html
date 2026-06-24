@@ -1,128 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Interactive Periodic Table</title>
+
 <style>
-  body{font-family:Arial, sans-serif;background:#f3f7ff;margin:0;text-align:center;color:#1f2937}
-  header{padding:25px;background:#1f4e79;color:white}
-  .table{display:grid;grid-template-columns:repeat(18,64px);gap:6px;justify-content:center;margin:25px auto;max-width:1250px}
-  .el{background:white;border-radius:10px;padding:6px;height:58px;box-shadow:0 2px 6px #bbb;cursor:pointer;transition:.2s;border:2px solid transparent}
-  .el:hover{transform:scale(1.08);border-color:#0077cc;background:#e8f5ff}
-  .num{font-size:11px;text-align:left}.sym{font-size:22px;font-weight:bold;color:#0077cc}.name{font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);align-items:center;justify-content:center;padding:20px}
-  .card{background:white;border-radius:18px;max-width:420px;width:100%;padding:25px;box-shadow:0 10px 30px #111;text-align:left}
-  .close{float:right;font-size:24px;cursor:pointer}.big{font-size:55px;color:#0077cc;font-weight:bold;text-align:center}.muted{color:#555}
-  @media(max-width:900px){.table{grid-template-columns:repeat(6,58px)}.el{height:54px}.sym{font-size:20px}}
+body{font-family:Arial;background:#f3f7ff;margin:0;text-align:center;color:#1f2937}
+header{padding:25px;background:#1f4e79;color:white}
+button{padding:12px 18px;margin:8px;border:0;border-radius:10px;background:#0077cc;color:white;cursor:pointer;font-size:16px}
+button:hover{transform:scale(1.05)}
+.table{display:grid;grid-template-columns:repeat(6,70px);gap:8px;justify-content:center;margin:25px auto}
+.el{background:white;border-radius:10px;padding:8px;height:65px;box-shadow:0 2px 6px #bbb;cursor:pointer}
+.el:hover{background:#e8f5ff;transform:scale(1.08)}
+.num{font-size:11px;text-align:left}
+.sym{font-size:23px;font-weight:bold;color:#0077cc}
+.name{font-size:10px}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);align-items:center;justify-content:center}
+.card{background:white;border-radius:18px;max-width:400px;padding:25px;text-align:left}
+.close{float:right;font-size:25px;cursor:pointer}
+.big{text-align:center;font-size:55px;color:#0077cc;font-weight:bold}
+#quizSection{margin:40px}
 </style>
 </head>
-<body>
-<div style="text-align:center;margin:40px;">
-  <button onclick="startQuiz()">🧠 Start Quiz</button>
 
-  <div id="quizBox" style="display:none;margin-top:20px;">
-    <h2 id="timer">Time: 60</h2>
-    <h3 id="question"></h3>
-    <div id="answers"></div>
-    <p id="score"></p>
-  </div>
-<button onclick="window.scrollTo({top:0,behavior:'smooth'})">
-⬆️ Back to Periodic Table
-</button>
-  <h2>🥇 Leaderboard</h2>
-  <ol id="leaderboard"></ol>
+<body>
+
+<header id="elements">
+<h1>🧪 Interactive Periodic Table</h1>
+<p>Click an element to see information</p>
+<button onclick="document.getElementById('quizSection').scrollIntoView({behavior:'smooth'})">🧠 Go to Quiz</button>
+</header>
+
+<div class="table" id="table"></div>
+
+<div class="modal" id="modal">
+<div class="card">
+<span class="close" onclick="closeModal()">×</span>
+<div class="big" id="mSymbol"></div>
+<h2 id="mName"></h2>
+<p id="mInfo"></p>
+</div>
 </div>
 
+<section id="quizSection">
+<h1>🧠 Element Quiz</h1>
+<button onclick="startQuiz()">Start Quiz</button>
+
+<div id="quizBox" style="display:none">
+<h2 id="timer">Time: 60</h2>
+<h3 id="question"></h3>
+<div id="answers"></div>
+<p id="score"></p>
+</div>
+
+<button onclick="document.getElementById('elements').scrollIntoView({behavior:'smooth'})">
+🧪 Back to Periodic Table
+</button>
+
+<h2>🥇 Leaderboard</h2>
+<ol id="leaderboard"></ol>
+</section>
+
 <script>
-const quizQuestions = [
-  {q:"What is the symbol of Oxygen?", a:"O", options:["O","H","N","C"]},
-  {q:"What is the symbol of Hydrogen?", a:"H", options:["O","H","He","Na"]},
-  {q:"What is the symbol of Carbon?", a:"C", options:["Ca","C","Cl","Co"]},
-  {q:"What is the symbol of Sodium?", a:"Na", options:["S","So","Na","N"]},
-  {q:"What is the symbol of Helium?", a:"He", options:["H","He","Ho","Ha"]},
-  {q:"What is the symbol of Iron?", a:"Fe", options:["Ir","I","Fe","F"]},
-  {q:"What is the symbol of Gold?", a:"Au", options:["Ag","Au","G","Go"]},
-  {q:"What is the symbol of Silver?", a:"Ag", options:["S","Si","Ag","Au"]},
-  {q:"What is the symbol of Calcium?", a:"Ca", options:["C","Ca","Cl","Co"]},
-  {q:"What is the symbol of Chlorine?", a:"Cl", options:["C","Ca","Cl","Ch"]}
+const elements = [
+["H","Hydrogen"],["He","Helium"],["Li","Lithium"],["Be","Beryllium"],["B","Boron"],["C","Carbon"],
+["N","Nitrogen"],["O","Oxygen"],["F","Fluorine"],["Ne","Neon"],["Na","Sodium"],["Mg","Magnesium"],
+["Al","Aluminium"],["Si","Silicon"],["P","Phosphorus"],["S","Sulfur"],["Cl","Chlorine"],["Ar","Argon"],
+["K","Potassium"],["Ca","Calcium"],["Sc","Scandium"],["Ti","Titanium"],["V","Vanadium"],["Cr","Chromium"],
+["Mn","Manganese"],["Fe","Iron"],["Co","Cobalt"],["Ni","Nickel"],["Cu","Copper"],["Zn","Zinc"],
+["Ga","Gallium"],["Ge","Germanium"],["As","Arsenic"],["Se","Selenium"],["Br","Bromine"],["Kr","Krypton"],
+["Rb","Rubidium"],["Sr","Strontium"],["Y","Yttrium"],["Zr","Zirconium"],["Nb","Niobium"],["Mo","Molybdenum"],
+["Tc","Technetium"],["Ru","Ruthenium"],["Rh","Rhodium"],["Pd","Palladium"],["Ag","Silver"],["Cd","Cadmium"],
+["In","Indium"],["Sn","Tin"],["Sb","Antimony"],["Te","Tellurium"],["I","Iodine"],["Xe","Xenon"],
+["Cs","Cesium"],["Ba","Barium"],["La","Lanthanum"],["Ce","Cerium"],["Pr","Praseodymium"],["Nd","Neodymium"],
+["Pm","Promethium"],["Sm","Samarium"],["Eu","Europium"],["Gd","Gadolinium"],["Tb","Terbium"],["Dy","Dysprosium"],
+["Ho","Holmium"],["Er","Erbium"],["Tm","Thulium"],["Yb","Ytterbium"],["Lu","Lutetium"],["Hf","Hafnium"],
+["Ta","Tantalum"],["W","Tungsten"],["Re","Rhenium"],["Os","Osmium"],["Ir","Iridium"],["Pt","Platinum"],
+["Au","Gold"],["Hg","Mercury"],["Tl","Thallium"],["Pb","Lead"],["Bi","Bismuth"],["Po","Polonium"],
+["At","Astatine"],["Rn","Radon"],["Fr","Francium"],["Ra","Radium"],["Ac","Actinium"],["Th","Thorium"],
+["Pa","Protactinium"],["U","Uranium"],["Np","Neptunium"],["Pu","Plutonium"],["Am","Americium"],["Cm","Curium"],
+["Bk","Berkelium"],["Cf","Californium"],["Es","Einsteinium"],["Fm","Fermium"],["Md","Mendelevium"],["No","Nobelium"],
+["Lr","Lawrencium"],["Rf","Rutherfordium"],["Db","Dubnium"],["Sg","Seaborgium"],["Bh","Bohrium"],["Hs","Hassium"],
+["Mt","Meitnerium"],["Ds","Darmstadtium"],["Rg","Roentgenium"],["Cn","Copernicium"],["Nh","Nihonium"],["Fl","Flerovium"],
+["Mc","Moscovium"],["Lv","Livermorium"],["Ts","Tennessine"],["Og","Oganesson"]
 ];
 
-let current = 0;
-let points = 0;
-let time = 60;
-let timer;
+const table=document.getElementById("table");
+elements.forEach((e,i)=>{
+table.innerHTML+=`
+<div class="el" onclick="openModal('${e[0]}','${e[1]}',${i+1})">
+<div class="num">${i+1}</div>
+<div class="sym">${e[0]}</div>
+<div class="name">${e[1]}</div>
+</div>`;
+});
+
+function openModal(sym,name,num){
+document.getElementById("modal").style.display="flex";
+document.getElementById("mSymbol").innerHTML=sym;
+document.getElementById("mName").innerHTML=name;
+document.getElementById("mInfo").innerHTML="Atomic number: "+num+"<br>This is the element "+name+".";
+}
+function closeModal(){document.getElementById("modal").style.display="none";}
+
+const quizQuestions=[
+{q:"What is the symbol of Oxygen?",a:"O",options:["O","H","N","C"]},
+{q:"What is the symbol of Hydrogen?",a:"H",options:["O","H","He","Na"]},
+{q:"What is the symbol of Carbon?",a:"C",options:["Ca","C","Cl","Co"]},
+{q:"What is the symbol of Sodium?",a:"Na",options:["S","So","Na","N"]},
+{q:"What is the symbol of Helium?",a:"He",options:["H","He","Ho","Ha"]},
+{q:"What is the symbol of Iron?",a:"Fe",options:["Ir","I","Fe","F"]},
+{q:"What is the symbol of Gold?",a:"Au",options:["Ag","Au","G","Go"]},
+{q:"What is the symbol of Silver?",a:"Ag",options:["S","Si","Ag","Au"]},
+{q:"What is the symbol of Calcium?",a:"Ca",options:["C","Ca","Cl","Co"]},
+{q:"What is the symbol of Chlorine?",a:"Cl",options:["C","Ca","Cl","Ch"]}
+];
+
+let current=0,points=0,time=60,timer;
 
 function startQuiz(){
-  current = 0;
-  points = 0;
-  time = 60;
-  document.getElementById("quizBox").style.display = "block";
-  showQuestion();
-
-  clearInterval(timer);
-  timer = setInterval(() => {
-    time--;
-    document.getElementById("timer").innerHTML = "Time: " + time;
-    if(time <= 0){
-      finishQuiz();
-    }
-  }, 1000);
+current=0;points=0;time=60;
+document.getElementById("quizBox").style.display="block";
+showQuestion();
+clearInterval(timer);
+timer=setInterval(()=>{
+time--;
+document.getElementById("timer").innerHTML="Time: "+time;
+if(time<=0)finishQuiz();
+},1000);
 }
 
 function showQuestion(){
-  let q = quizQuestions[current];
-  document.getElementById("question").innerHTML = "Question " + (current+1) + "/10: " + q.q;
-
-  let html = "";
-  q.options.forEach(option => {
-    html += `<button onclick="answer('${option}')">${option}</button> `;
-  });
-
-  document.getElementById("answers").innerHTML = html;
-  document.getElementById("score").innerHTML = "Score: " + points;
+let q=quizQuestions[current];
+document.getElementById("question").innerHTML="Question "+(current+1)+"/10: "+q.q;
+document.getElementById("answers").innerHTML=q.options.map(o=>`<button onclick="answer('${o}')">${o}</button>`).join("");
+document.getElementById("score").innerHTML="Score: "+points;
 }
 
 function answer(choice){
-  if(choice === quizQuestions[current].a){
-    points++;
-  }
-
-  current++;
-
-  if(current >= 10){
-    finishQuiz();
-  } else {
-    showQuestion();
-  }
+if(choice===quizQuestions[current].a)points++;
+current++;
+if(current>=10)finishQuiz(); else showQuestion();
 }
 
 function finishQuiz(){
-  clearInterval(timer);
-
-  document.getElementById("question").innerHTML = "🏆 Quiz Finished!";
-  document.getElementById("answers").innerHTML = "";
-  document.getElementById("score").innerHTML = "Score: " + points + "/10";
-
-  let name = prompt("Enter your name for leaderboard:");
-  if(!name) name = "Player";
-
-  let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
-  leaderboard.push({name:name, score:points});
-  leaderboard.sort((a,b) => b.score - a.score);
-  leaderboard = leaderboard.slice(0,5);
-
-  localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
-  showLeaderboard();
+clearInterval(timer);
+document.getElementById("question").innerHTML="🏆 Quiz Finished!";
+document.getElementById("answers").innerHTML="";
+document.getElementById("score").innerHTML="Score: "+points+"/10";
+let name=prompt("Enter your name:");
+if(!name)name="Player";
+let leaderboard=JSON.parse(localStorage.getItem("leaderboard"))||[];
+leaderboard.push({name:name,score:points});
+leaderboard.sort((a,b)=>b.score-a.score);
+leaderboard=leaderboard.slice(0,5);
+localStorage.setItem("leaderboard",JSON.stringify(leaderboard));
+showLeaderboard();
 }
 
 function showLeaderboard(){
-  let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
-  document.getElementById("leaderboard").innerHTML =
-    leaderboard.map(p => `<li>${p.name} - ${p.score}/10</li>`).join("");
+let leaderboard=JSON.parse(localStorage.getItem("leaderboard"))||[];
+document.getElementById("leaderboard").innerHTML=leaderboard.map(p=>`<li>${p.name} - ${p.score}/10</li>`).join("");
 }
-
 showLeaderboard();
 </script>
+
 </body>
 </html>
