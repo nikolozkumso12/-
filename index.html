@@ -1,10 +1,91 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Nikoloz's Website</title>
+  <title>Chemistry Elements</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f8ff;
+      text-align: center;
+    }
+
+    h1 {
+      color: #1f4e79;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .element {
+      background: white;
+      width: 140px;
+      height: 140px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px gray;
+      padding: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .element:hover {
+      transform: scale(1.1);
+      background: #dff1ff;
+    }
+
+    .info {
+      display: none;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .element:hover .info {
+      display: block;
+    }
+
+    .symbol {
+      font-size: 40px;
+      font-weight: bold;
+      color: #0077cc;
+    }
+  </style>
 </head>
 <body>
-    <h1>Welcome to my website!</h1>
-    <p>My name is Nikoloz.</p>
+
+  <h1>Chemistry Elements</h1>
+  <p>Hover over an element to see information</p>
+
+  <div class="container">
+
+    <div class="element">
+      <div class="symbol">H</div>
+      <h3>Hydrogen</h3>
+      <div class="info">Atomic number: 1<br>Lightest element.</div>
+    </div>
+
+    <div class="element">
+      <div class="symbol">O</div>
+      <h3>Oxygen</h3>
+      <div class="info">Atomic number: 8<br>Needed for breathing.</div>
+    </div>
+
+    <div class="element">
+      <div class="symbol">C</div>
+      <h3>Carbon</h3>
+      <div class="info">Atomic number: 6<br>Found in all living things.</div>
+    </div>
+
+    <div class="element">
+      <div class="symbol">Na</div>
+      <h3>Sodium</h3>
+      <div class="info">Atomic number: 11<br>Part of table salt.</div>
+    </div>
+
+  </div>
+
 </body>
 </html>
